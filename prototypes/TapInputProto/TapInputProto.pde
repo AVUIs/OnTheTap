@@ -42,6 +42,7 @@ void draw(){
   ampMessage.clear();
   ampMessage.setAddrPattern(AMP);
   ampMessage.add(constrain(amplitude,0.0,1.0));
+  osc.send(tapMessage,broadcast);
   //draw
   background(amplitude * 127);text(amplitude,10,10);
   
