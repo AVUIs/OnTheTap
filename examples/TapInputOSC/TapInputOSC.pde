@@ -16,7 +16,9 @@ String TAP = "/input/tap";
 String AMP = "/input/amplitude";
 OscMessage tapMessage = new OscMessage(TAP);
 OscMessage ampMessage = new OscMessage(AMP);
-NetAddress broadcast = new NetAddress("255.255.255.255", PORT_OUT);
+//NetAddress broadcast = new NetAddress("255.255.255.255", PORT_OUT);
+NetAddress broadcast = new NetAddress("10.0.1.91", PORT_OUT);
+//NetAddress broadcast = new NetAddress("10.0.1.50", PORT_OUT);
 
 void setup(){
   //setup preview
