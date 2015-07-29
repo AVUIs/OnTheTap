@@ -18,7 +18,7 @@ import netP5.*;
 OscP5 oscP5;
 
 float onAmp;
-float vall;
+float onVall;
 float theX;
 float theY;
 
@@ -31,7 +31,7 @@ AudioSample kick;
 AudioSample snare;
 AudioInput in;
 
-HLine h1 = new HLine(20, 2.0); 
+Visuals h1 = new Visuals(20, 2.0); 
 
 ControlFrame cf;
 
@@ -69,32 +69,30 @@ void setup() {
 
   cp5 = new ControlP5(this);
   cf = addControlFrame("extra", 500, 300);
+  
 }
 
 
 void onX(int note, float value, int state) {
-  //  println("x: " + value + " state: " + state);
+ 
   theX = value;
+  
 }
 void onY(int note, float value, int state) {
-  // println("y: " + value + " state: " + state);
-
+  
   theY = value;
 }
+
 void onVelocity(int note, float value, int state) {
 
-  vall = value;
-  println(value);
-}
+  onVall = value;
 
+}
 
 void onAmplitude(int note, float value, int state) {
 
-  //  println(value);
   onAmp = value;
-  //  vall = note;
 
-  //println("amplitude: " + value + " state: " + state);
 }
 
 
@@ -102,7 +100,7 @@ void onAmplitude(int note, float value, int state) {
 void draw() {
   smooth();
   background(0);
-  println("theY + " + theY); 
+ 
 
 
   theWidth = width;
@@ -111,29 +109,30 @@ void draw() {
 
   background(myColorBackground);
 
-//for(int i = 1; i < 6; i++){
-// println(i); 
-//}
 
-if(change == 1){
-  h1.update1(); 
-}
 
-if(change == 2){
-  h1.update2(); 
-}
+  if (change == 1) {
+    h1.update1();
+  }
 
-if(change == 3){
-  h1.update3(); 
-}
+  if (change == 2) {
+    h1.update2();
+  }
 
-if(change == 4){
-  h1.update4(); 
-}
+  if (change == 3) {
+    h1.update3();
+  }
 
-if(change == 5){
-  h1.update5(); 
-}
+  if (change == 4) {
+    h1.update4();
+  }
+
+  if (change == 5) {
+    h1.update5();
+  }
+
+
+  //basic visulation use for testing
 
   fill(255);
   ellipse(width/2, height/2, 100+one*onAmp, 100+one*onAmp);
@@ -141,45 +140,80 @@ if(change == 5){
   textSize(20);
   text("Amplitude", width/2, height/2+100); 
 
-  ellipse(width/3, height/2, 100 + two*vall, 100 + two*vall);
+  ellipse(width/3, height/2, 100 + two*onVall, 100 + two*onVall);
   text("Velocity", width/3, height/2+100); 
   fill(255, 0, 0);
 
   ellipse(10+theX*theWidth, 10+theY*theHeight, 10+three, 10+three);
   text("X & Y", theX*theWidth, theY*theHeight+50);
 
-
-
-
   fill(255, 0, 0);
   rectMode(CENTER);
   rect( width/2+200, height/2, 20+four, 20+four);
+  
+  
 }
 
-class HLine { 
+class Visuals { 
   float ypos, speed; 
-  HLine (float y, float s) {  
+  Visuals (float y, float s) {  
     ypos = y; 
-    speed = s; 
-  } 
-  void update1() { 
-    ypos += speed; 
-    if (ypos > height) { 
-      ypos = 0; 
-    } 
-    line(0, ypos, width, ypos); 
+    speed = s;
   } 
   
+  
+  // 5 functions that are called to trigure visuals
+  
+  void update1() { 
+
+    //    onAmp;
+    //    onVall;
+    //    theX;
+    //    theY;
+  } 
+
   void update2() { 
-    rect(100,100,100,100);
+
+    //    onAmp;
+    //    onVall;
+    //    theX;
+    //    theY;
+
+
+    rect(100, 100, 100, 100);
   }
-    void update3() { 
-    rect(500,100,100,100);
+  void update3() { 
+
+
+
+    //    onAmp;
+    //    onVall;
+    //    theX;
+    //    theY;
+
+    rect(500, 100, 100, 100);
   }
-      void update4() { 
-    rect(100,500,100,100);
+  void update4() { 
+
+
+    //    onAmp;
+    //    onVall;
+    //    theX;
+    //    theY;
+
+
+    rect(100, 500, 100, 100);
   }
-      void update5() { 
-    rect(500,500,100,100);
+  void update5() { 
+
+
+    //    onAmp;
+    //    onVall;
+    //    theX;
+    //    theY;
+
+
+    rect(500, 500, 100, 100);
   }
 } 
+

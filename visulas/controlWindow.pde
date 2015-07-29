@@ -115,7 +115,8 @@ public class ControlFrame extends PApplet {
     println("a radio Button event: "+a);
 
     if ( a == 1) {
-      // actvats the class H1
+      
+      // actvats the class H1 function 
         change = 1;
         
        // chnages the background color
