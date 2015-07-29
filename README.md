@@ -1,7 +1,7 @@
 OnTheTap
 =========
 
-tap reactive audio visual system
+Tap reactive audio visual system
 
 The system plays with the tactile, analog feel of tapping surfaces as a digital input device.
 This input and it's gestures in turn drive sound and visuals expressively
@@ -10,6 +10,19 @@ This input and it's gestures in turn drive sound and visuals expressively
 
 Contributors
 ============
+
+How to Install
+==============
+
+1. Donwload ZIP
+2. Unzip the Folder in your workspace
+3. Open processing and install external Libraries
+
+	OSC http://www.sojamo.de/libraries/oscP5/
+	CP% http://www.sojamo.de/libraries/controlP5/
+
+4. Restart Processing and open the scetch
+
 
 * [Sabba Keynejad](http://sabbakeynejad.co.uk)
 * [George Profenza](http://lifesine.eu)

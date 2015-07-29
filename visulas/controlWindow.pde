@@ -45,9 +45,9 @@ public class ControlFrame extends PApplet {
               .setColorLabel(color(255))
                 .setItemsPerRow(5)
                   .setSpacingColumn(50)
-                    .addItem("50", 1)
-                      .addItem("100", 2)
-                        .addItem("150", 3)
+                    .addItem("Triangle", 1)
+                      .addItem("Lines", 2)
+                        .addItem("Bird", 3)
                           .addItem("200", 4)
                             .addItem("250", 5)
                               ;
@@ -108,36 +108,36 @@ public class ControlFrame extends PApplet {
   }
 
   void controlEvent(ControlEvent theEvent) {
-
+    if (theEvent.isFrom(r)) {
+    }
   }
 
   void radioButton(int a) {
     println("a radio Button event: "+a);
 
     if ( a == 1) {
-      
       // actvats the class H1 function 
-        change = 1;
-        
-       // chnages the background color
-        myColorBackground = color(255, 0, 0);
-        
+      change = 1;
+
+      // chnages the background color
+      myColorBackground = color(0, 0, 0);
     }
     if ( a == 2) {
-        change = 2;
+      change = 2;
       myColorBackground = color(255, 255, 0);
     }
     if ( a == 3) {
-         change = 3;
-      myColorBackground = color(0, 255, 255);
+      change = 3;
+      background(0);
     }
     if ( a == 4) {
       change = 4;
-      myColorBackground = color(255, 0, 255);
+    
+     
     }
     if ( a == 5) {
       change = 5;
-      myColorBackground = color(0, 0, 255);
+
     }
   }
 }
