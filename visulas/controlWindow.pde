@@ -28,10 +28,10 @@ public class ControlFrame extends PApplet {
     cp5 = new ControlP5(this);
 
 
-    cp5.addSlider("1st Slider").plugTo(parent, "one").setRange(0, 255).setPosition(10, 30);
-    cp5.addSlider("2nd Slider").plugTo(parent, "two").setRange(0, 255).setPosition(10, 60);
-    cp5.addSlider("3nd Slider").plugTo(parent, "three").setRange(0, 255).setPosition(10, 90);
-    cp5.addSlider("4nd Slider").plugTo(parent, "four").setRange(0, 255).setPosition(10, 120);
+    cp5.addSlider("1st Slider").plugTo(parent, "one").setRange(0, 255).setPosition(20, 30);
+    cp5.addSlider("2nd Slider").plugTo(parent, "two").setRange(0, 255).setPosition(20, 60);
+    cp5.addSlider("3nd Slider").plugTo(parent, "three").setRange(0, 255).setPosition(20, 90);
+    cp5.addSlider("4nd Slider").plugTo(parent, "four").setRange(0, 255).setPosition(20, 120);
 
 
 
@@ -108,33 +108,34 @@ public class ControlFrame extends PApplet {
   }
 
   void controlEvent(ControlEvent theEvent) {
-    if (theEvent.isFrom(r)) {
-      //      print("got an event from "+theEvent.getName()+"\t");
-      //println(getName());
-      //      for (int i=0; i<theEvent.getGroup ().getArrayValue().length; i++) {
-      //        print(int(theEvent.getGroup().getArrayValue()[i]));
-      //      }
-      //    println("\t "+theEvent.getValue());
-      //ColorBackground = color(int(theEvent.group().value()*50), 0, 0);
-    }
+
   }
 
   void radioButton(int a) {
     println("a radio Button event: "+a);
 
     if ( a == 1) {
-      myColorBackground = color(100, 255, 0);
+      // actvats the class H1
+        change = 1;
+        
+       // chnages the background color
+        myColorBackground = color(255, 0, 0);
+        
     }
     if ( a == 2) {
+        change = 2;
       myColorBackground = color(255, 255, 0);
     }
     if ( a == 3) {
+         change = 3;
       myColorBackground = color(0, 255, 255);
     }
     if ( a == 4) {
+      change = 4;
       myColorBackground = color(255, 0, 255);
     }
     if ( a == 5) {
+      change = 5;
       myColorBackground = color(0, 0, 255);
     }
   }
