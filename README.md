@@ -19,7 +19,7 @@ How to Install
 3. Open processing and install external Libraries
 
 	OSC http://www.sojamo.de/libraries/oscP5/
-	CP% http://www.sojamo.de/libraries/controlP5/
+	CP5 http://www.sojamo.de/libraries/controlP5/
 
 4. Restart Processing and open the scetch
 
