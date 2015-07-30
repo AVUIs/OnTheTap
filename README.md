@@ -14,14 +14,14 @@ Contributors
 How to Install
 ==============
 
-1. Donwload ZIP
+1. Download ZIP
 2. Unzip the Folder in your workspace
 3. Open processing and install external Libraries
 
 	OSC http://www.sojamo.de/libraries/oscP5/
 	CP5 http://www.sojamo.de/libraries/controlP5/
 
-4. Restart Processing and open the scetch
+4. Restart Processing and open the sketch
 
 
 * [Sabba Keynejad](http://sabbakeynejad.co.uk)
