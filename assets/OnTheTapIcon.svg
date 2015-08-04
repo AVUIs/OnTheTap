@@ -3,8 +3,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
 	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g id="bg" display="none">
-	<rect display="inline" width="64" height="64"/>
+<g id="bg">
+	<rect width="64" height="64"/>
 </g>
 <g id="icon">
 	<path fill="#FFFFFF" d="M28.64,21.031h4.692v4.438h2.98v3.741h-3.17v6.15c0,0-0.634,2.409,3.17,0.571l1.078,3.614

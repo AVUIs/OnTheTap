@@ -15,7 +15,7 @@ void draw(){
   background(127);
   ellipse(x * width,y * width, amplitude * 100, amplitude * 100);
 }
-void mousePressed(){
+void mouseDragged(){
   x = (float)mouseX/width;
   y = (float)mouseY/height;
   velocity = random(1.0);

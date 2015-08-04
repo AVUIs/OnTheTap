@@ -1,5 +1,6 @@
-package org.GenAV.OnTheTap.tapinput;
+//package org.GenAV.OnTheTap.tapinput;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PVector;
 import processing.event.MouseEvent;
 /*
@@ -41,7 +42,7 @@ public class OSCNode implements GUIListener{
   private final String TAG_SEARCH = "/search";
   private final String TAG_RESULT = "/result";
   private final String TAG_SUBSCRIBE = "/subscribe";
-  private final String TAG_UNSUBSCRIBE = "/unssubscribe";
+  private final String TAG_UNSUBSCRIBE = "/unsubscribe";
   private final OscMessage SEARCH = new OscMessage(TAG_SEARCH,new Object[]{PORT_IN});
   
   public final static int INPUT = 0;
@@ -59,10 +60,11 @@ public class OSCNode implements GUIListener{
   private HashMap<String,String> mapping = new HashMap<String,String>();
   
   private PApplet parent;
-
+  private boolean autoMode = false;
   private String prefix = "";
   
   //UI
+  private boolean visible = true;
   private float buttonWidth = 150;
   private float buttonHeight= 20;
   private TapButton tap;
@@ -72,17 +74,24 @@ public class OSCNode implements GUIListener{
   private GUIElement lastPress,lastRelease;
   private HashMap<PVector,PVector> connectionUI = new HashMap<PVector,PVector>();  
   
-  @SuppressWarnings("deprecation")
+  /*
+   * parameter (local or remote) -> maybe swap left to right ?
+   * parameter -> name -> string, function, guiElement, connectionPos 
+   * local map: HashMap<String,Parameter>
+   * remote map: HashMap<String,Parameter>
+   * mapping: HashMap<String,String>
+   */
+  
   OSCNode(PApplet parent,int type){
   
     this.parent = parent;
     this.type = type;
     osc = new OscP5(this,type == OSCNode.INPUT ? PORT_IN : PORT_OUT);
-    broadcast = new NetAddress("255.255.255.255",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
-//    broadcast = new NetAddress("127.0.0.1",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
+//    broadcast = new NetAddress("255.255.255.255",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
+    broadcast = new NetAddress("127.0.0.1",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
     PApplet.println(broadcast);
-    parent.registerDraw(this);
-    parent.registerDispose(this);
+    parent.registerMethod("draw", this);
+    parent.registerMethod("dispose",this);
     parent.registerMethod("mouseEvent", this);
     
     try{
@@ -119,50 +128,76 @@ public class OSCNode implements GUIListener{
       remoteControls.update(e);
       if(type == OSCNode.OUTPUT) search.update(e);
     }
-    if(e.getAction() == MouseEvent.RELEASE && lastRelease == null && lastPress != null){
-      parent.println(lastPress.label+" is in localControls:"+localControls.contains(lastPress));
+    if(e.getAction() == MouseEvent.RELEASE && lastPress != null){
+      PApplet.println(lastPress.label+" is in localControls:"+localControls.contains(lastPress));
       lastPress = null;
     }
   }
-  public void onGUIEvent(GUIElement e,int type){
-    parent.println(e.label + ":"+type);
-    if(e.equals(search) && type == MouseEvent.CLICK) search();
-    else{
+
+  //TODO handle press/release from local or remote controls -> allow connections from right to left
+  //TODO check if connection exists
+  //TODO shift + click to remove connection
+  public void onGUIEvent(GUIElement g,MouseEvent e){
+    int type = e.getAction();
+    PApplet.println(g.label + ":"+type);
+    if(g.equals(search)){
+      if(type == MouseEvent.CLICK) search();
+    }else{
+      boolean isRemote = remoteControls.contains(g);
       if(type == MouseEvent.PRESS){
-        if(lastPress == null) lastPress = e;
+        if(lastPress == null) lastPress = g;
       }
       if(type == MouseEvent.RELEASE){
 //        if(lastRelease== null) lastRelease = e;
-        if(lastPress != null && remoteControls.contains(e)){
-          connectionUI.put(new PVector(lastPress.x+lastPress.w, lastPress.y+(lastPress.h * .5f)), new PVector(e.x, e.y + (e.h * .5f)));
-          map(e.label,lastPress.label);
-          parent.println("connecting " + lastPress.label + " to " + e.label);
+        
+        if(lastPress != null && lastPress != g){
+          if(isRemote){
+            connectionUI.put(new PVector(lastPress.x+lastPress.w, lastPress.y+(lastPress.h * .5f)), new PVector(g.x, g.y + (g.h * .5f)));
+            map(g.label,lastPress.label);
+            PApplet.println("connecting " + lastPress.label + " to " + g.label);
+          }else{
+            connectionUI.put(new PVector(lastPress.x, lastPress.y+(lastPress.h * .5f)), new PVector(g.x+g.w, g.y + (g.h * .5f)));
+            map(lastPress.label,g.label);
+            PApplet.println("connecting " + g.label + " to " + lastPress.label);
+          }
         }
+        
+//        if(lastPress != null && remoteControls.contains(e)){
+//          connectionUI.put(new PVector(lastPress.x+lastPress.w, lastPress.y+(lastPress.h * .5f)), new PVector(e.x, e.y + (e.h * .5f)));
+//          map(e.label,lastPress.label);
+//          parent.println("connecting " + lastPress.label + " to " + e.label);
+//        }
+        
       }
     }
   }
   
   void draw(){
+    if(autoMode) send(true);
+    if(!visible ) return;
     tap.draw();
     if(tap.isOn){
       localControls.draw();
       remoteControls.draw();
       if(type == OSCNode.OUTPUT) search.draw();
+      if(lastPress != null){
+        parent.pushStyle();
+        parent.line(lastPress.x + (localControls.contains(lastPress) ? lastPress.w : 0), lastPress.y+(lastPress.h * .5f), parent.mouseX, parent.mouseY);
+        parent.popStyle();
+      }
+      drawConnections();
     }
-    if(lastPress != null){
-      parent.pushStyle();
-      parent.line(lastPress.x + lastPress.w, lastPress.y+(lastPress.h * .5f), parent.mouseX, parent.mouseY);
-      parent.popStyle();
-    }
-    drawConnections();
   }
   private void drawConnections() {
+    parent.pushStyle();
+    parent.beginShape(PConstants.LINES);
     for (PVector from : connectionUI.keySet()){
       PVector to = connectionUI.get(from);
-      parent.pushStyle();
-      parent.line(from.x,from.y,to.x,to.y);
-      parent.popStyle();
+      parent.vertex(from.x, from.y);
+      parent.vertex(to.x, to.y);
     }
+    parent.endShape();
+    parent.popStyle();
   }
 
   void search(){
@@ -253,7 +288,7 @@ public class OSCNode implements GUIListener{
         //TODO check if exists first
         String ip = m.address().substring(1);//address starts with a / so we discard it
         
-      //check if ip was already subscribed
+        //check if ip was already subscribed
         RemoteSource existing = null;
         if(sources.size() > 0){
           for(RemoteSource s : sources){
@@ -296,6 +331,13 @@ public class OSCNode implements GUIListener{
     
     
 //      println(m.netAddress());
+  }
+  
+  void show(){
+    visible = true;
+  }
+  void hide(){
+    visible = false;
   }
   
   void dispose(){
@@ -359,7 +401,7 @@ class GUIGroup{
   }
 }
 interface GUIListener{
-  void onGUIEvent(GUIElement e,int type);
+  void onGUIEvent(GUIElement g,MouseEvent e);
 }
 class GUIElement{
   
@@ -371,12 +413,6 @@ class GUIElement{
   String label;
   
   PApplet parent;
-  
-  
-  
-//  final static int CLICK = 0;
-//  final static int PRESS = 1;
-//  final static int RELEASE = 2;
   
   GUIListener listener;
   
@@ -395,11 +431,15 @@ class GUIElement{
   }
 }
 class Button extends GUIElement{
+  
   boolean isOver,wasPressed;
   int pw = 10;
   
+  //TODO handle width resize based on label
   Button(PApplet parent, String label, float x, float y, float w, float h) {
     super(parent, label, x, y, w, h);
+    float tw = parent.textWidth(label);
+    if(tw > this.w) this.w = tw;
   }
   void update(MouseEvent e){
     if(!enabled) return;
@@ -407,13 +447,13 @@ class Button extends GUIElement{
           (parent.mouseY >= this.y && parent.mouseY <= (this.y+this.h)));
     switch(e.getAction()){
         case MouseEvent.CLICK:
-          if(isOver && listener != null) listener.onGUIEvent(this, MouseEvent.CLICK);
+          if(isOver && listener != null) listener.onGUIEvent(this, e);
       break;
         case MouseEvent.PRESS:
-          if(isOver && listener != null) listener.onGUIEvent(this, MouseEvent.PRESS);
+          if(isOver && listener != null) listener.onGUIEvent(this, e);
           break;
         case MouseEvent.RELEASE:
-          if(isOver && listener != null) listener.onGUIEvent(this, MouseEvent.RELEASE);
+          if(isOver && listener != null) listener.onGUIEvent(this, e);
           break;
         case MouseEvent.MOVE:
           break;
@@ -481,5 +521,3 @@ class TapButton extends ToggleButton{
       parent.popStyle();
   }
 }
-
-
