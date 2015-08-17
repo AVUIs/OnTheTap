@@ -87,8 +87,8 @@ public class OSCNode implements GUIListener{
     this.parent = parent;
     this.type = type;
     osc = new OscP5(this,type == OSCNode.INPUT ? PORT_IN : PORT_OUT);
-//    broadcast = new NetAddress("255.255.255.255",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
-    broadcast = new NetAddress("127.0.0.1",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
+    broadcast = new NetAddress("255.255.255.255",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
+//    broadcast = new NetAddress("127.0.0.1",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
     PApplet.println(broadcast);
     parent.registerMethod("draw", this);
     parent.registerMethod("dispose",this);

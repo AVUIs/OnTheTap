@@ -1,6 +1,9 @@
 OnTheTap
 =========
 
+UPDATE IN PROGRESS - please wait
+--------------------------------
+
 Tap reactive audio visual system
 
 The system plays with the tactile, analog feel of tapping surfaces as a digital input device.
@@ -8,8 +11,6 @@ This input and it's gestures in turn drive sound and visuals expressively
 
 ![OnTheTap Visuals](https://github.com/AVUIs/OnTheTap/raw/master/assets/OnTheTap.gif)
 
-Contributors
-============
 
 How to Install
 ==============
@@ -23,6 +24,8 @@ How to Install
 
 4. Restart Processing and open the sketch
 
+Contributors
+============
 
 * [Sabba Keynejad](http://sabbakeynejad.co.uk)
 * [George Profenza](http://lifesine.eu)

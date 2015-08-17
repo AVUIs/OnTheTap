@@ -74,21 +74,13 @@ public class OSCNode implements GUIListener{
   private GUIElement lastPress,lastRelease;
   private HashMap<PVector,PVector> connectionUI = new HashMap<PVector,PVector>();  
   
-  /*
-   * parameter (local or remote) -> maybe swap left to right ?
-   * parameter -> name -> string, function, guiElement, connectionPos 
-   * local map: HashMap<String,Parameter>
-   * remote map: HashMap<String,Parameter>
-   * mapping: HashMap<String,String>
-   */
-  
   OSCNode(PApplet parent,int type){
   
     this.parent = parent;
     this.type = type;
     osc = new OscP5(this,type == OSCNode.INPUT ? PORT_IN : PORT_OUT);
-//    broadcast = new NetAddress("255.255.255.255",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
-    broadcast = new NetAddress("127.0.0.1",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
+    broadcast = new NetAddress("255.255.255.255",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
+//    broadcast = new NetAddress("127.0.0.1",type == OSCNode.INPUT ? PORT_OUT : PORT_IN);
     PApplet.println(broadcast);
     parent.registerMethod("draw", this);
     parent.registerMethod("dispose",this);

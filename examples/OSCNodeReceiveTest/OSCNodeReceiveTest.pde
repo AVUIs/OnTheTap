@@ -7,17 +7,20 @@ public float d = 1.0;
 
 String out = "";
 
+float cx,cy,qw,qh;
+
 void setup(){
   size(400,400);
   
   n = new OSCNode(this,OSCNode.OUTPUT);
+  
+  cx = width * .5;
+  cy = height * .5;
+  qw = cx * .5;
+  qh = cy * .5;
 }
 void draw(){
   background(127);
-  float cx = width * .5;
-  float cy = height * .5;
-  float qw = cx * .5;
-  float qh = cy * .5;
   quad(cx - (qw * a),cy - (qh * a),
        cx + (qw * b),cy - (qh * b),
        cx + (qw * c),cy + (qh * c),
