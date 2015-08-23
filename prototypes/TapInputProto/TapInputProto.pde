@@ -46,13 +46,6 @@ void draw(){
   //draw
   background(amplitude * 127);text(amplitude,10,10);
   
-  //basic test, volume threshold
-  if(amplitude > threshold){
-    rect(10,10,100,100);
-  }
-  
-  
-  
 }
 void mousePressed(){
   tapMessage.clear();
