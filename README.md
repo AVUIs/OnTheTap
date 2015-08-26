@@ -8,7 +8,7 @@ The input and it's gestures in turn drive sound and visuals expressively
 This is achieved by pairing the moment of tap with the loudness at that moment in time.
 Using the loudness as input for the ouput sounds alse creates brief feedback loops.
 
-![OnTheTap Visuals](https://github.com/AVUIs/OnTheTap/raw/master/assets/OnTheTap.gif)
+![OnTheTap Visuals](https://raw.githubusercontent.com/AVUIs/OnTheTap/master/GenAV%20Performance/assets/OnTheTap.gif)
 
 Repository Structure
 ====================
