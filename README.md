@@ -37,13 +37,13 @@ This can be downloaded from the library's [releases page] and source code is ava
 To explore the tap idea closer to the brief The **TapCA2D** sketch was creating.
 It's a self contained Processing sketch which uses only 1 library (Minim), already included with Processing.
 The tap input's parameters (x,y,amplitude) are mapped to a 2D Cellular Automata: a circle of live cells is placed at the x,y coordinates and the amplitude determines the radius.
-![TapCA2D](https://github.com/AVUIs/OnTheTap/raw/master/assets/tap_ca_brush.gif)
+![TapCA2D brush](https://raw.githubusercontent.com/AVUIs/OnTheTap/master/GenAV%20Performance/assets/tap_ca_brush.gif)
 
 The 2D CA's alive cells are mapped directly to string sounds.
 Needless to say many strings plucked fast don't sound very musical.
 This is a simple setup that can be easily modified to sound different.
 
-![TapCA2D](https://github.com/AVUIs/OnTheTap/raw/master/assets/TapCA2D.gif)
+![TapCA2D preview](https://raw.githubusercontent.com/AVUIs/OnTheTap/master/GenAV%20Performance/assets/TapCA2D.gif)
 
 Contributors
 ============
